@@ -1,0 +1,89 @@
+package me.redredstone.Signalling.commands;
+
+import me.redredstone.Signalling.Main;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+
+public class SignalCommand implements CommandExecutor {
+	@SuppressWarnings("unused")
+	
+	private Main plugin;
+	public SignalCommand(Main plugin) {
+		this.plugin = plugin;
+		plugin.getCommand("signal").setExecutor(this);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage("No. I am not dealing with you");
+			return true;
+		}
+		Player plr = (Player) sender;
+		if (plr.isOp()) {
+			if (!(args.length == 0)) {
+				String action = args[0];
+				if (action.toLowerCase().equals("add")) {
+					if (args.length < 2) {
+						plr.sendMessage("[Signalling] You need more than this");
+					} else {
+						
+						Location l = plr.getLocation();
+						String item = args[1];
+						if (item.toLowerCase().equals("signal")) {
+							plr.sendMessage(ChatColor.GREEN + "[Signalling] You have created a signal at " + l.getBlockX() + " " + l.getBlockY() + " " + l.getBlockZ());
+							Location blockLocation = plr.getLocation();
+							
+							//Build signal
+							blockLocation.getBlock().setType(Material.OAK_FENCE);
+							blockLocation.add(0,1,0).getBlock().setType(Material.BLACK_CONCRETE);
+							blockLocation.add(0,1,0).getBlock().setType(Material.BLACK_CONCRETE);
+							
+							//Teleport the player away so they are not in the signal
+							plr.teleport(blockLocation.add(1,-2,0));
+						} else if (item.toLowerCase().equals("sensor")) {
+							plr.sendMessage(ChatColor.GREEN + "[Signalling] You have created a sensor at " + l.getBlockX() + " " + l.getBlockY() + " " + l.getBlockZ());
+							Location blockLocation = plr.getLocation().add(0,-1,0);
+							blockLocation.getBlock().setType(Material.BLUE_CONCRETE);
+						} else {
+							plr.sendMessage(ChatColor.RED + "[Signalling] I am sorry but WHAT THE FUCK IS THIS SUPPOSED TO MEAN?!");
+						}
+						
+					}
+					return true;
+				} else if (action.toLowerCase().equals("remove")) {
+					if (args.length < 2) {
+						plr.sendMessage(ChatColor.RED + "[Signalling] You need more than this");
+					} else {
+						plr.sendMessage(ChatColor.GREEN + "[Signalling] This feature is not done yet. Fuck off");
+					}
+					return true;
+				} else if (action.toLowerCase().equals("set")) {
+					if (args.length < 2) {
+						plr.sendMessage(ChatColor.RED + "[Signalling] You need more than this");
+					} else {
+						plr.sendMessage(ChatColor.GREEN + "[Signalling] This feature is not done yet. Fuck off");
+					}
+					return true;
+				} else {
+					plr.sendMessage(ChatColor.RED + "[Signalling] Can you please explain what this is meant to be?");
+					return true;
+				}
+			} else {
+				plr.sendMessage(ChatColor.RED + "[Signalling] You need to give me some arguments nerd");
+				plr.sendMessage(ChatColor.RED + "[Signalling] /signal <action> <item> <SignalID>");
+			}
+			return false;
+		} else {
+			plr.sendMessage(ChatColor.RED + "Get out you nerd");
+		}
+		return true;
+	}
+}

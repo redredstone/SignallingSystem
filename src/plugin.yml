@@ -1,0 +1,9 @@
+name: SignallingPlugin
+version: 1.0
+author: redredstone01
+main: me.redredstone.Signalling.Main
+description: Signalling plugin, bottom text
+
+commands:
+  Signal:
+    description: Get the fuck out if you are not op
