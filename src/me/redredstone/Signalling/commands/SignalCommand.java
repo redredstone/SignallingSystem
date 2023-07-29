@@ -38,16 +38,24 @@ public class SignalCommand implements CommandExecutor {
 						Location l = plr.getLocation();
 						String item = args[1];
 						if (item.toLowerCase().equals("signal")) {
-							plr.sendMessage(ChatColor.GREEN + "[Signalling] You have created a signal at " + l.getBlockX() + " " + l.getBlockY() + " " + l.getBlockZ());
-							Location blockLocation = plr.getLocation();
+							//Location
+							Location origin = plr.getEyeLocation();
+							Vector dir = origin.getDirection();
+							Location center = origin.clone().add(dir);
 							
-							//Build signal
+							//Rotation
+							Location rotated = origin.clone();
+							rotated.setPitch(0);
+							rotated.setYaw(origin.getYaw() - 90);
+							Vector rot = rotated.getDirection();
+							
+							//Building a signal
+							Location blockLocation = center.clone().add(rot);
 							blockLocation.getBlock().setType(Material.OAK_FENCE);
 							blockLocation.add(0,1,0).getBlock().setType(Material.BLACK_CONCRETE);
 							blockLocation.add(0,1,0).getBlock().setType(Material.BLACK_CONCRETE);
 							
-							//Teleport the player away so they are not in the signal
-							plr.teleport(blockLocation.add(1,-2,0));
+							plr.sendMessage(ChatColor.GREEN + "[Signalling] You have created a signal at " + l.getBlockX() + " " + l.getBlockY() + " " + l.getBlockZ());
 						} else if (item.toLowerCase().equals("sensor")) {
 							plr.sendMessage(ChatColor.GREEN + "[Signalling] You have created a sensor at " + l.getBlockX() + " " + l.getBlockY() + " " + l.getBlockZ());
 							Location blockLocation = plr.getLocation().add(0,-1,0);
