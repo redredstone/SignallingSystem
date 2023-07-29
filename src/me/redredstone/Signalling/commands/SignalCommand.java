@@ -53,7 +53,7 @@ public class SignalCommand implements CommandExecutor {
 							Location blockLocation = plr.getLocation().add(0,-1,0);
 							blockLocation.getBlock().setType(Material.BLUE_CONCRETE);
 						} else {
-							plr.sendMessage(ChatColor.RED + "[Signalling] I am sorry but WHAT THE FUCK IS THIS SUPPOSED TO MEAN?!");
+							plr.sendMessage(ChatColor.RED + "[Signalling] This is not a valid argument.");
 						}
 						
 					}
@@ -62,14 +62,14 @@ public class SignalCommand implements CommandExecutor {
 					if (args.length < 2) {
 						plr.sendMessage(ChatColor.RED + "[Signalling] You need more than this");
 					} else {
-						plr.sendMessage(ChatColor.GREEN + "[Signalling] This feature is not done yet. Fuck off");
+						plr.sendMessage(ChatColor.GREEN + "[Signalling] This feature is not done yet.");
 					}
 					return true;
 				} else if (action.toLowerCase().equals("set")) {
 					if (args.length < 2) {
 						plr.sendMessage(ChatColor.RED + "[Signalling] You need more than this");
 					} else {
-						plr.sendMessage(ChatColor.GREEN + "[Signalling] This feature is not done yet. Fuck off");
+						plr.sendMessage(ChatColor.GREEN + "[Signalling] This feature is not done yet.");
 					}
 					return true;
 				} else {
@@ -77,12 +77,12 @@ public class SignalCommand implements CommandExecutor {
 					return true;
 				}
 			} else {
-				plr.sendMessage(ChatColor.RED + "[Signalling] You need to give me some arguments nerd");
+				plr.sendMessage(ChatColor.RED + "[Signalling] You need to give me some arguments");
 				plr.sendMessage(ChatColor.RED + "[Signalling] /signal <action> <item> <SignalID>");
 			}
 			return false;
 		} else {
-			plr.sendMessage(ChatColor.RED + "Get out you nerd");
+			plr.sendMessage(ChatColor.RED + "Leave this command alone you don't have anything to do with it");
 		}
 		return true;
 	}
